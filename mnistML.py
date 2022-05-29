@@ -1,8 +1,8 @@
-import numpy as np,theano,mnist_loader,NetworkLib,numpy as np,time
+import numpy as np,theano,mnist_loader,Network,numpy as np,time
 
 tdata, vdata, test = mnist_loader.load_data_wrapper() #Stole from Neural Networks and Deep Learning book
 
-network = NetworkLib.Network([784,200,200,10])
+network = Network.Network([784,200,200,10])
 
 for epoch in range(10):
     c = 0
@@ -16,4 +16,4 @@ c = 0
 for x,y in vdata:
     if np.argmax(network.feedForward(x)) == np.argmax(y):
         c = c + 1
-print("Final test % accuracy:",c*100/len(test))    
+print("\nFinal test % accuracy:",c*100/len(test))    
