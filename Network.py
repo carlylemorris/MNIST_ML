@@ -31,7 +31,7 @@ class Network(object):
     
     self.ev = theano.function([self.x,self.y],self.cost)
 
-    #Batch/Minibatch training
+    #Needed to implement Batch/Minibatch training in the future
     
     self.xs = T.matrix("xs")
     self.ys = T.matrix("ys")
