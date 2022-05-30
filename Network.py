@@ -1,6 +1,6 @@
 import numpy as np, theano, theano.tensor as T,pickle,random
 
-class Network(object):#Network w 4 layers
+class Network(object):
 
   def __init__(self,sizes,activation=T.nnet.selu):
     self.sizes = sizes
@@ -31,7 +31,7 @@ class Network(object):#Network w 4 layers
     
     self.ev = theano.function([self.x,self.y],self.cost)
 
-    #Batch/Minibatch training
+    #Needed to implement Batch/Minibatch training in the future
     
     self.xs = T.matrix("xs")
     self.ys = T.matrix("ys")
