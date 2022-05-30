@@ -4,18 +4,18 @@ class Network(object):#Network w 4 layers
 
   def __init__(self,sizes,activation=T.nnet.selu):
     self.sizes = sizes
-    self.b = [theano.shared(np.random.randn(1,l)) for l in self.sizes[1:]]
-    self.w = [theano.shared(nextlayer ** -.5 * np.random.randn(current,nextlayer)) for current,nextlayer in zip(self.sizes[:-1],self.sizes[1:])]
+    self.b = [theano.shared(np.random.randn(i)) for i in self.sizes[1:]]
+    self.w = [theano.shared(nextlayer ** -.5 * np.random.randn(nextlayer,current)) for current,nextlayer in zip(self.sizes[:-1],self.sizes[1:])]
     self.activation = activation
 
     self.x = T.vector("x")
     self.y = T.vector("y")
     self.lr = T.scalar()
     
-    self.model = [self.activation((T.dot(self.x,self.w[0])) + self.b[0])]
-    for l in range(1,len(self.sizes)-2):
-      self.model.append(self.activation((T.dot(self.model[-1],self.w[l])) + self.b[l]))
-    self.model.append(T.nnet.sigmoid((T.dot(self.model[-1],self.w[-1])) + self.b[-1]))
+    self.model = [self.activation((T.dot(self.w[0],self.x)) + self.b[0])]
+    for i in range(1,len(self.sizes)-2):
+      self.model.append(self.activation((T.dot(self.w[i],self.model[-1])) + self.b[i]))
+    self.model.append(T.nnet.sigmoid((T.dot(self.w[-1],self.model[-1])) + self.b[-1]))
 
     self.out = self.model[-1]
     self.feedForward = theano.function([self.x],self.out,name="FF")

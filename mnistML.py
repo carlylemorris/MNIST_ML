@@ -1,5 +1,7 @@
 import numpy as np,theano,mnist_loader,Network,numpy as np,time
 
+#theano.config.mode="DEBUG_MODE"
+
 tdata, vdata, test = mnist_loader.load_data_wrapper() #Stole from Neural Networks and Deep Learning book
 
 network = Network.Network([784,200,200,10])
